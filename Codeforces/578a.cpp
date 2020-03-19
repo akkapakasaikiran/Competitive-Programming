@@ -60,49 +60,29 @@ int vmax(vi v){ //positivity assumed
 	return ans;
 }
 
-void prsi(si s){
-	for(int x : s) cout<<x<<" ";
-	cout<<endl;
-}
-
 ////////////////////////////////////////
+
+vi rooms;
+
+int leftnearest(){
+	rep(i,10) if(rooms[i]==0) return i;
+}
+int rightnearest(){
+	for(int i=9;i>=0;i--) if(rooms[i]==0) return i;
+}
 
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
 	int n; cin>>n;
-	vi a; tkii(a,n);
-
-	int numdays = 0;
-	vi daylen;
-	int start = -1;
-	si went;
-	si came;
+	rooms.resize(10);
+	st s; cin>>s;
 	rep(i,n){
-		if(a[i]>0){
-			if(went.find(a[i])==went.end() 
-				&& came.find(a[i])==came.end()) came.insert(a[i]);
-			else{ cout<<-1<<endl; return 0; }
-		}
-		else{
-			if(came.find(-a[i])!=came.end()){
-				came.erase(came.find(-a[i]));
-				went.insert(-a[i]);
-			}
-			else{ cout<<-1<<endl; return 0; }  
-		}
-		if(came.size()==0){
-			numdays++;
-			went.clear();
-			daylen.pb(i-start);
-			start = i;
-		}
+		if(s[i]=='L') rooms[leftnearest()]=1;
+		else if(s[i]=='R') rooms[rightnearest()]=1;
+		else rooms[stoi(s.substr(i,1))]=0;
 	}
-	if(came.size()!=0) cout<<-1<<endl;
-	else{
-		cout<<numdays<<endl;
-		rep(i,daylen.size()) cout<<daylen[i]<<" ";
-		cout<<endl;
-	}
+	rep(i,10) cout<<rooms[i];
+	cout<<endl;
 }

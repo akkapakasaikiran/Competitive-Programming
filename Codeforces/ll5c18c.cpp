@@ -19,7 +19,6 @@ using namespace std;
 #define vvi vector<vector<int> >
 #define vb vector<bool>
 #define vii vector<int>::iterator
-#define si set<int>
 #define pb push_back
 #define all(v) v.begin(),v.end()
 #define pii pair<int,int>
@@ -60,49 +59,63 @@ int vmax(vi v){ //positivity assumed
 	return ans;
 }
 
-void prsi(si s){
-	for(int x : s) cout<<x<<" ";
-	cout<<endl;
+////////////////////////////////////////
+
+#define ae add_edge
+void add_edge(vector<vi> &a, int u, int v){
+	a[u].pb(v);
+}
+
+#define prg print_graph
+void print_graph(vector<vi> &a){
+	rep(i,a.size()){ cout<<i<<" : "; prvi(a[i]); }
 }
 
 ////////////////////////////////////////
+
+vvi adj;
+vb vis;
+vb win;
+
+void dfs(int u){
+	vis[u]=true;
+	for(int v : adj[u]){
+		if(!vis[v]) dfs(v);
+		if(!win[v]) win[u]=true;
+	}
+}
 
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	int n; cin>>n;
+	int n; cin>>n; 
 	vi a; tkii(a,n);
+	vi ind(n);
+	rep(i,n) ind[a[i]-1]=i;
 
-	int numdays = 0;
-	vi daylen;
-	int start = -1;
-	si went;
-	si came;
+	adj.resize(n);
+	vis.resize(n);
+	win.resize(n);
+
 	rep(i,n){
-		if(a[i]>0){
-			if(went.find(a[i])==went.end() 
-				&& came.find(a[i])==came.end()) came.insert(a[i]);
-			else{ cout<<-1<<endl; return 0; }
-		}
-		else{
-			if(came.find(-a[i])!=came.end()){
-				came.erase(came.find(-a[i]));
-				went.insert(-a[i]);
-			}
-			else{ cout<<-1<<endl; return 0; }  
-		}
-		if(came.size()==0){
-			numdays++;
-			went.clear();
-			daylen.pb(i-start);
-			start = i;
+		int j = i+a[i];
+		while(j<n){
+			if(a[j]>a[i]) ae(adj,i,j);
+			j+=a[i];
+		} 
+		j=i-a[i];
+		while(j>=0){
+			if(a[j]>a[i]) ae(adj,i,j);
+			j-=a[i];
 		}
 	}
-	if(came.size()!=0) cout<<-1<<endl;
-	else{
-		cout<<numdays<<endl;
-		rep(i,daylen.size()) cout<<daylen[i]<<" ";
-		cout<<endl;
+
+	dfs(ind[0]);
+	rep(i,n){
+		if(win[i]) cout<<"A";
+		else cout<<"B";
 	}
+	cout<<endl;
+
 }

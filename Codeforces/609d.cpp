@@ -60,11 +60,6 @@ int vmax(vi v){ //positivity assumed
 	return ans;
 }
 
-void prsi(si s){
-	for(int x : s) cout<<x<<" ";
-	cout<<endl;
-}
-
 ////////////////////////////////////////
 
 int main(){
@@ -72,37 +67,24 @@ int main(){
 	cin.tie(NULL); cout.tie(NULL);
 
 	int n; cin>>n;
-	vi a; tkii(a,n);
-
-	int numdays = 0;
-	vi daylen;
-	int start = -1;
-	si went;
-	si came;
-	rep(i,n){
-		if(a[i]>0){
-			if(went.find(a[i])==went.end() 
-				&& came.find(a[i])==came.end()) came.insert(a[i]);
-			else{ cout<<-1<<endl; return 0; }
+	vi h; tkii(h,n); h.pb(0);
+	ll ans = 0;
+	ll cnt = 0;
+	bool odd = false;
+	rep(i,n+1){
+		if(h[i]%2==0){
+			if(odd){
+				ans+=cnt/2;
+				odd = false;
+				cnt = 0;	
+			}
+			ans+=h[i]/2;
+			
 		}
 		else{
-			if(came.find(-a[i])!=came.end()){
-				came.erase(came.find(-a[i]));
-				went.insert(-a[i]);
-			}
-			else{ cout<<-1<<endl; return 0; }  
-		}
-		if(came.size()==0){
-			numdays++;
-			went.clear();
-			daylen.pb(i-start);
-			start = i;
+			cnt+=h[i];
+			odd = true;
 		}
 	}
-	if(came.size()!=0) cout<<-1<<endl;
-	else{
-		cout<<numdays<<endl;
-		rep(i,daylen.size()) cout<<daylen[i]<<" ";
-		cout<<endl;
-	}
+	cout<<ans<<endl;
 }

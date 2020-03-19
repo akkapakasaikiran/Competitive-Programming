@@ -19,7 +19,6 @@ using namespace std;
 #define vvi vector<vector<int> >
 #define vb vector<bool>
 #define vii vector<int>::iterator
-#define si set<int>
 #define pb push_back
 #define all(v) v.begin(),v.end()
 #define pii pair<int,int>
@@ -60,49 +59,21 @@ int vmax(vi v){ //positivity assumed
 	return ans;
 }
 
-void prsi(si s){
-	for(int x : s) cout<<x<<" ";
-	cout<<endl;
-}
-
 ////////////////////////////////////////
+
+bool prime(ll x){
+	for(int i = 2;i<=sqrt(x);i++) if(x%i==0) return false;
+	return true;
+}
 
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	int n; cin>>n;
-	vi a; tkii(a,n);
-
-	int numdays = 0;
-	vi daylen;
-	int start = -1;
-	si went;
-	si came;
-	rep(i,n){
-		if(a[i]>0){
-			if(went.find(a[i])==went.end() 
-				&& came.find(a[i])==came.end()) came.insert(a[i]);
-			else{ cout<<-1<<endl; return 0; }
-		}
-		else{
-			if(came.find(-a[i])!=came.end()){
-				came.erase(came.find(-a[i]));
-				went.insert(-a[i]);
-			}
-			else{ cout<<-1<<endl; return 0; }  
-		}
-		if(came.size()==0){
-			numdays++;
-			went.clear();
-			daylen.pb(i-start);
-			start = i;
-		}
-	}
-	if(came.size()!=0) cout<<-1<<endl;
-	else{
-		cout<<numdays<<endl;
-		rep(i,daylen.size()) cout<<daylen[i]<<" ";
-		cout<<endl;
+	test(t){
+		ll a,b; cin>>a>>b;
+		ll num = a*a - b*b ;
+		if(a-b==1 && prime(a+b)) cout<<"yes"<<endl;
+		else cout<<"no"<<endl;
 	}
 }

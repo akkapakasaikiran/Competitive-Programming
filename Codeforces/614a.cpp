@@ -60,49 +60,25 @@ int vmax(vi v){ //positivity assumed
 	return ans;
 }
 
-void prsi(si s){
-	for(int x : s) cout<<x<<" ";
-	cout<<endl;
-}
-
 ////////////////////////////////////////
 
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	int n; cin>>n;
-	vi a; tkii(a,n);
+	test(t){
+		int n,s,k; cin>>n>>s>>k;
+		vb closed(n+1);
+		vi rest; tkii(rest,k);
+		rep(i,k) closed[rest[i]]=true;
 
-	int numdays = 0;
-	vi daylen;
-	int start = -1;
-	si went;
-	si came;
-	rep(i,n){
-		if(a[i]>0){
-			if(went.find(a[i])==went.end() 
-				&& came.find(a[i])==came.end()) came.insert(a[i]);
-			else{ cout<<-1<<endl; return 0; }
+		int f=s,b=s;
+		bool found = false;
+		while(!found){
+			if(f<=n && closed[f]==false) found = true;
+			else if(b>=1 && closed[b]==false) found = true;
+			else{ f++; b--; }
 		}
-		else{
-			if(came.find(-a[i])!=came.end()){
-				came.erase(came.find(-a[i]));
-				went.insert(-a[i]);
-			}
-			else{ cout<<-1<<endl; return 0; }  
-		}
-		if(came.size()==0){
-			numdays++;
-			went.clear();
-			daylen.pb(i-start);
-			start = i;
-		}
-	}
-	if(came.size()!=0) cout<<-1<<endl;
-	else{
-		cout<<numdays<<endl;
-		rep(i,daylen.size()) cout<<daylen[i]<<" ";
-		cout<<endl;
+		cout<<max(f-s,s-b)<<endl;
 	}
 }

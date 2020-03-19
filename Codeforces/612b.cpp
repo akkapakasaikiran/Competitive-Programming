@@ -60,49 +60,35 @@ int vmax(vi v){ //positivity assumed
 	return ans;
 }
 
-void prsi(si s){
-	for(int x : s) cout<<x<<" ";
-	cout<<endl;
-}
-
 ////////////////////////////////////////
+
+char bachahua(char a, char b){
+	if(a=='S' && b=='E' || a=='E' && b=='S') return 'T';
+	else if(a=='S' && b=='T' || a=='T' && b=='S') return 'E';
+	else return 'S';
+}
 
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	int n; cin>>n;
-	vi a; tkii(a,n);
+	int n,k; cin>>n>>k;
+	set<st> cards;
+	st tmp;
+	rep(i,n){ cin>>tmp; cards.insert(tmp); }
 
-	int numdays = 0;
-	vi daylen;
-	int start = -1;
-	si went;
-	si came;
-	rep(i,n){
-		if(a[i]>0){
-			if(went.find(a[i])==went.end() 
-				&& came.find(a[i])==came.end()) came.insert(a[i]);
-			else{ cout<<-1<<endl; return 0; }
-		}
-		else{
-			if(came.find(-a[i])!=came.end()){
-				came.erase(came.find(-a[i]));
-				went.insert(-a[i]);
+	int cnt = 0;
+	for(st x : cards){
+		for(st y : cards){
+			if(x!=y){
+				st z=x;
+				rep(i,k){
+					if(x[i]==y[i]) z[i]=x[i];
+					else z[i]=bachahua(x[i],y[i]);
+				}
+				if(cards.find(z)!=cards.end()) cnt++;
 			}
-			else{ cout<<-1<<endl; return 0; }  
-		}
-		if(came.size()==0){
-			numdays++;
-			went.clear();
-			daylen.pb(i-start);
-			start = i;
 		}
 	}
-	if(came.size()!=0) cout<<-1<<endl;
-	else{
-		cout<<numdays<<endl;
-		rep(i,daylen.size()) cout<<daylen[i]<<" ";
-		cout<<endl;
-	}
+	cout<<cnt/6<<endl;
 }

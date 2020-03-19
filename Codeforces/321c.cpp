@@ -60,49 +60,65 @@ int vmax(vi v){ //positivity assumed
 	return ans;
 }
 
-void prsi(si s){
-	for(int x : s) cout<<x<<" ";
-	cout<<endl;
+////////////////////////////////////////
+
+#define ae add_edge
+void add_edge(vector<vi> &a, int u, int v){
+	a[u].pb(v);
+	a[v].pb(u);
+}
+
+#define prg print_graph
+void print_graph(vector<vi> &a){
+	rep(i,a.size()){ cout<<i<<" : "; prvi(a[i]); }
 }
 
 ////////////////////////////////////////
+
+int n,m; 
+vvi adj;
+vb cat;
+vi cnt;
+int ans = 0;
+
+void dfs(int u){
+	if(adj[u].size()==1 && u!=1) ans++; 
+	else {
+		for(int v : adj[u]){
+			if(cnt[v]==-1){
+				if(cat[v]) cnt[v]=cnt[u]+1;
+				else cnt[v]=0;
+				if(cnt[v]<=m) dfs(v); 
+			}
+		}
+	}
+}
+
 
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	int n; cin>>n;
-	vi a; tkii(a,n);
+	cin>>n>>m;	
+	adj.resize(n+1);
+	cnt.resize(n+1,-1);
+	cat.resize(n+1);
 
-	int numdays = 0;
-	vi daylen;
-	int start = -1;
-	si went;
-	si came;
+	vi a; tkii(a,n);
 	rep(i,n){
-		if(a[i]>0){
-			if(went.find(a[i])==went.end() 
-				&& came.find(a[i])==came.end()) came.insert(a[i]);
-			else{ cout<<-1<<endl; return 0; }
-		}
-		else{
-			if(came.find(-a[i])!=came.end()){
-				came.erase(came.find(-a[i]));
-				went.insert(-a[i]);
-			}
-			else{ cout<<-1<<endl; return 0; }  
-		}
-		if(came.size()==0){
-			numdays++;
-			went.clear();
-			daylen.pb(i-start);
-			start = i;
-		}
+		if(a[i]==1) cat[i+1]=true;
+		else cat[i+1]=false;
 	}
-	if(came.size()!=0) cout<<-1<<endl;
-	else{
-		cout<<numdays<<endl;
-		rep(i,daylen.size()) cout<<daylen[i]<<" ";
-		cout<<endl;
+
+	int x,y;
+	rep(i,n-1){
+		cin>>x>>y;
+		ae(adj,x,y);
 	}
+
+	if(cat[1]) cnt[1]=1;
+	else cnt[1]=0;
+	dfs(1);
+
+	cout<<ans<<endl;
 }
