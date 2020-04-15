@@ -66,9 +66,8 @@ int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
-	}
+	ll n,k; cin>>n>>k;
+
+	ll ans = 0.5*(-3 + sqrt(9 + 8*(k+n)));
+	cout<<n - ans<<endl;
 }

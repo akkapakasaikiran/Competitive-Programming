@@ -67,8 +67,19 @@ int main(){
 	cin.tie(NULL); cout.tie(NULL);
 
 	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+		int n,x; cin>>n>>x;
+		vb vis; vis.resize(201);
+
+		int ai;
+		rep(i,n){
+			cin>>ai; vis[ai-1]=true;
+		}
+
+		int i = 0;
+		for(;i<201;i++){
+			if(!vis[i])x--;
+			if(x<0) break;
+		}
+		cout<<i<<endl;
 	}
 }

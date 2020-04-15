@@ -67,8 +67,22 @@ int main(){
 	cin.tie(NULL); cout.tie(NULL);
 
 	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
+		int n; cin>>n;
+		vi a,b; tkii(a,n); tkii(b,n);
+		vi c;
+		rep(i,n) c.pb(a[i]-b[i]);
+
+		int fo = n; int fn = n; int fp = n; int fm = n;
+		rep(i,n){
+			if(a[i] == 1 && fo == n) fo = i;
+			else if(a[i] == -1 && fm == n) fm = i;
+
+			if(c[i]>0 && fp == n) fp = i;
+			else if(c[i]<0 && fn == n) fn = i;
+		}
+
+		if( ((fn==n && fo==n) || fo < fn) && ((fp==n && fm==n) || fm < fp) ) cout<<"YES"<<endl;
 		else cout<<"NO"<<endl;
+
 	}
 }

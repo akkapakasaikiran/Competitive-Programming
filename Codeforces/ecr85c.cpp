@@ -1,15 +1,4 @@
-#include<iostream>
-#include<vector>
-#include<list>
-#include<cmath>
-#include<set>
-#include<map>
-#include<unordered_map>
-#include<set>
-#include<unordered_set>
-#include<stack>
-#include<queue>
-#include<algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long
@@ -21,11 +10,6 @@ using namespace std;
 #define vii vector<int>::iterator
 #define si set<int>
 #define pb push_back
-#define all(v) v.begin(),v.end()
-#define pii pair<int,int>
-#define mp make_pair
-#define fi first
-#define se second
 
 //////////////////////////////////////////
 
@@ -39,11 +23,7 @@ using namespace std;
 #define tkii take_input<int>
 template <typename T>
 void take_input(vector<T> &a, int size){
-	T tmp;
-	for(int i=0;i<size;i++){
-		cin>>tmp;
-		a.push_back(tmp);
-	}
+	T tmp; for(int i=0;i<size;i++){ cin>>tmp; a.push_back(tmp); }
 }
 
 #define prv print_vector
@@ -54,10 +34,8 @@ void print_vector(vector<T> v){
 	cout<<endl;
 }
 
-int vmax(vi v){ //positivity assumed
-	int ans = 0;
-	rep(i,v.size()) ans=max(ans,v[i]);
-	return ans;
+void rsort(vector<int> &v){
+	sort(v.begin(),v.end(),greater<int>());
 }
 
 ////////////////////////////////////////
@@ -67,8 +45,27 @@ int main(){
 	cin.tie(NULL); cout.tie(NULL);
 
 	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+		int n; cin>>n;
+		v<ll> a,b; ll x,y;
+		rep(i,n){
+			cin>>x>>y;
+			a.pb(x); b.pb(y);
+		}
+
+		rep(i,n){
+			if(i!=n-1) b[i]=min(b[i],a[i+1]);
+			else b[i]=min(b[i],a[0]);
+		}
+
+		int last = -1;
+		ll minn = 1e13;
+		rep(i,n) if(b[i] < minn){ minn = b[i]; last = i; }
+
+		a.insert(a.end(),a.begin(),a.end());
+		b.insert(b.end(),b.begin(),b.end());
+
+		ll bul = a[last+1];
+		for(int i=(last+2);i<=last+n;i++) bul+=a[i]-b[i-1];
+		cout<<bul<<endl;
 	}
 }

@@ -62,13 +62,34 @@ int vmax(vi v){ //positivity assumed
 
 ////////////////////////////////////////
 
+ll bignum = 1e4;
+vector<vll > ncrmemo;
+
+ll ncr(int n, int r){
+	if(ncrmemo[n][r]==-1) ncrmemo[n][r]=ncr(n-1,r)+ncr(n-1,r-1);
+	return ncrmemo[n][r];
+}
+
+
+
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+	rep(i,bignum){
+		vll tmp;
+		rep(j,bignum){
+			tmp.pb(-1);
+		}
+		ncrmemo.pb(tmp);
+		cout<<i<<" ";
 	}
+
+	/*rep(i,20){
+		rep(j,20){
+			cout<<ncrmemo[i][j]<<" ";
+		}
+		cout<<endl;
+	}*/
+	
 }

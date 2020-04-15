@@ -62,13 +62,32 @@ int vmax(vi v){ //positivity assumed
 
 ////////////////////////////////////////
 
+bool noneg(vll diff){
+	rep(i,diff.size()) if(diff[i]<0) return false;
+	return true;
+}
+
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
 	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+		int n; cin>>n;
+		vi a; tkii(a,n);
+
+		int maxdiff = 0;
+		rep(i,n-1){
+			if(a[i]>a[i+1]){
+				maxdiff = max(maxdiff,a[i]-a[i+1]); 
+				a[i+1]=a[i];
+			}
+		}
+
+		int ans = 0;
+		while(maxdiff!=0){
+			maxdiff/=2;
+			ans++;
+		}
+		cout<<ans<<endl;
 	}
 }

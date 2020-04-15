@@ -67,8 +67,26 @@ int main(){
 	cin.tie(NULL); cout.tie(NULL);
 
 	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+		int n; cin>>n;
+		st x; cin>>x;
+		st a = "1"; st b = "1";
+		rep1(i,n-1){
+			if(a==b){
+				if(x[i]=='1'){ a.pb('1'); b.pb('0'); }
+				else if(x[i]=='0') { a.pb('0'); b.pb('0'); }
+				else{ a.pb('1'); b.pb('1'); }
+			}
+			else if(a>b){
+				if(x[i]=='0'){ a.pb('0'); b.pb('0'); }
+				else if(x[i]=='1'){ a.pb('0'); b.pb('1'); }
+				else{ a.pb('0'); b.pb('2'); }
+			}
+			else{
+				if(x[i]=='0'){ a.pb('0'); b.pb('0'); }
+				else if(x[i]=='1'){ a.pb('1'); b.pb('0'); }
+				else{ a.pb('2'); b.pb('1'); }
+			}
+		}
+		cout<<a<<endl<<b<<endl;
 	}
 }

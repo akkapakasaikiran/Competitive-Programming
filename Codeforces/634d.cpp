@@ -21,11 +21,6 @@ using namespace std;
 #define vii vector<int>::iterator
 #define si set<int>
 #define pb push_back
-#define all(v) v.begin(),v.end()
-#define pii pair<int,int>
-#define mp make_pair
-#define fi first
-#define se second
 
 //////////////////////////////////////////
 
@@ -39,11 +34,7 @@ using namespace std;
 #define tkii take_input<int>
 template <typename T>
 void take_input(vector<T> &a, int size){
-	T tmp;
-	for(int i=0;i<size;i++){
-		cin>>tmp;
-		a.push_back(tmp);
-	}
+	T tmp; for(int i=0;i<size;i++){ cin>>tmp; a.push_back(tmp); }
 }
 
 #define prv print_vector
@@ -54,12 +45,6 @@ void print_vector(vector<T> v){
 	cout<<endl;
 }
 
-int vmax(vi v){ //positivity assumed
-	int ans = 0;
-	rep(i,v.size()) ans=max(ans,v[i]);
-	return ans;
-}
-
 ////////////////////////////////////////
 
 int main(){
@@ -67,8 +52,26 @@ int main(){
 	cin.tie(NULL); cout.tie(NULL);
 
 	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+		vvi sudoku; sudoku.resize(9);
+		rep(i,9){
+			st s; cin>>s;
+			rep(j,9) sudoku[i].pb(s[j]-48);
+		}
+		
+		vector<st> posns;
+		posns.pb("00"); posns.pb("13"); posns.pb("26");
+		posns.pb("31"); posns.pb("44"); posns.pb("57");
+		posns.pb("62"); posns.pb("75"); posns.pb("88");
+
+		rep(i,9){
+			int pos1 = posns[i][0] - 48;
+			int pos2 = posns[i][1] - 48;
+			if(sudoku[pos1][pos2] != 9) sudoku[pos1][pos2] = 9;
+			else sudoku[pos1][pos2] = 8;
+		}
+		rep(i,9){
+			rep(j,9) cout<<sudoku[i][j];
+			cout<<endl;
+		}
 	}
 }

@@ -54,21 +54,61 @@ void print_vector(vector<T> v){
 	cout<<endl;
 }
 
-int vmax(vi v){ //positivity assumed
-	int ans = 0;
+int vmax(vi v){ // assumed non negative elements 
+	int ans = -1;
 	rep(i,v.size()) ans=max(ans,v[i]);
 	return ans;
 }
 
 ////////////////////////////////////////
 
+bool isperm(vii s, vii e){
+	int l = e - s;
+	vb seen; seen.resize(l);
+	for(vii i = s;i!=e;i++){
+		if(*i>l) return false;
+		else seen[(*i)-1] = true;
+	}
+	rep(i,l) if(!seen[i]) return false;
+	return true;
+}
+
+
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
 	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+		int n; cin>>n;
+		vi a; tkii(a,n);
+		int maxi = vmax(a); 
+		
+		if(maxi >= n){
+			cout<<0<<endl;
+			continue;
+		}
+
+		bool one = isperm(a.begin(),a.begin()+maxi) && isperm(a.begin()+maxi,a.end());
+
+		bool two = isperm(a.begin(),a.begin()+n-maxi) && isperm(a.begin()+n-maxi,a.end());
+
+		if(one && two && maxi == n/2){
+			cout<<1<<endl;
+			cout<<maxi<<" "<<n-maxi<<endl;
+		}
+		else if(one && two){
+			cout<<2<<endl;
+			cout<<maxi<<" "<<n-maxi<<endl;
+			cout<<n-maxi<<" "<<maxi<<endl;
+		}
+		else if(one){
+			cout<<1<<endl;
+			cout<<maxi<<" "<<n-maxi<<endl;
+		}
+		else if(two){
+			cout<<1<<endl;
+			cout<<n-maxi<<" "<<maxi<<endl;			
+		}
+		else cout<<0<<endl;
 	}
 }

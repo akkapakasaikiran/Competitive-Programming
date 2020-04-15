@@ -68,7 +68,32 @@ int main(){
 
 	test(t){
 		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+		if(n%2==1 && m%2==1){
+			rep(i,n){
+				rep(j,m){
+					if((i+j)%2==0) cout<<"B";
+					else cout<<"W";
+				}
+				cout<<endl;
+			}
+		}
+		else if(n%2==0){
+			rep(i,n){
+				rep(j,m){
+					if((i+j)%2==0 || (i==n-1 && j==0) ) cout<<"B";
+					else cout<<"W";
+				}
+				cout<<endl;
+			}
+		}
+		else{
+			rep(i,n){
+				rep(j,m){
+					if((i+j)%2==0 || (i==n-1 && j==m-1) ) cout<<"B";
+					else cout<<"W";
+				}
+				cout<<endl;
+			}
+		}
 	}
 }

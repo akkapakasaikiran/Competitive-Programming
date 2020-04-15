@@ -67,8 +67,15 @@ int main(){
 	cin.tie(NULL); cout.tie(NULL);
 
 	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
+		int a,b,c,d,x,y,x1,x2,y1,y2;
+		cin>>a>>b>>c>>d;
+		cin>>x>>y>>x1>>y1>>x2>>y2;
+		int xf,yf;
+		xf = x + b - a;
+		yf = y + d - c;
+		if(xf>=x1 && xf<=x2 && yf>=y1 && yf <= y2 && 
+				(a+b==0 || abs(x1-x2)>=1) &&
+				(c+d==0 || abs(y1-y2)>=1)) cout<<"YES"<<endl;
 		else cout<<"NO"<<endl;
 	}
 }

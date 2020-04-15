@@ -62,13 +62,53 @@ int vmax(vi v){ //positivity assumed
 
 ////////////////////////////////////////
 
+bool has0and1(vi v){
+	bool ok = true;
+	rep(i,v.size()) if(v[i]!=0 && v[i]!=1) ok = false;
+	return ok;
+}
+
+vi expand(ll num, int base){
+	vi out;
+	rep(j,60) out.pb(0);
+
+	ll powofbase = 1; int pow = 0;
+	while(powofbase <1e17){
+		powofbase *= base;
+		pow++;
+	}
+
+	for(int i=pow;i>=0;i--){
+		//cout<<i<<" "<<num<<" "<<powofbase<<" "<<(num>=powofbase)<<endl;
+		while(num>=powofbase){
+			num -= powofbase;
+			out[60-i-1]+=1;
+		}
+		powofbase /= base;
+	}
+	return out;
+}
+
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
 	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+		int n,k; cin>>n>>k;
+		vll a; tki<ll>(a,n);
+		bool intersect = false;
+		vi occ; rep(j,60) occ.pb(0);
+		rep(i,n){
+			//prvi(occ);
+			vi cur = expand(a[i],k); 
+			if(!has0and1(cur)) intersect = true;
+			rep(z,60){
+				if(cur[z]==1 && occ[z]==1) intersect = true;
+				else if(cur[z]==1) occ[z]=1;
+			}
+		}
+		if(intersect) cout<<"NO"<<endl;
+		else cout<<"YES"<<endl;
 	}
+	
 }

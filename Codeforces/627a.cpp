@@ -67,8 +67,12 @@ int main(){
 	cin.tie(NULL); cout.tie(NULL);
 
 	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
+		int n; cin>>n; vi a; tkii(a,n);
+		int biggest = vmax(a);
+		int parity = biggest % 2;
+		bool ok = true;
+		rep(i,n) if(a[i]%2!=parity) ok = false;
+		if(ok) cout<<"YES"<<endl; 
 		else cout<<"NO"<<endl;
 	}
 }

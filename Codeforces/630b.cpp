@@ -1,15 +1,4 @@
-#include<iostream>
-#include<vector>
-#include<list>
-#include<cmath>
-#include<set>
-#include<map>
-#include<unordered_map>
-#include<set>
-#include<unordered_set>
-#include<stack>
-#include<queue>
-#include<algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long
@@ -21,11 +10,6 @@ using namespace std;
 #define vii vector<int>::iterator
 #define si set<int>
 #define pb push_back
-#define all(v) v.begin(),v.end()
-#define pii pair<int,int>
-#define mp make_pair
-#define fi first
-#define se second
 
 //////////////////////////////////////////
 
@@ -39,11 +23,7 @@ using namespace std;
 #define tkii take_input<int>
 template <typename T>
 void take_input(vector<T> &a, int size){
-	T tmp;
-	for(int i=0;i<size;i++){
-		cin>>tmp;
-		a.push_back(tmp);
-	}
+	T tmp; for(int i=0;i<size;i++){ cin>>tmp; a.push_back(tmp); }
 }
 
 #define prv print_vector
@@ -54,21 +34,31 @@ void print_vector(vector<T> v){
 	cout<<endl;
 }
 
-int vmax(vi v){ //positivity assumed
-	int ans = 0;
-	rep(i,v.size()) ans=max(ans,v[i]);
-	return ans;
-}
-
 ////////////////////////////////////////
 
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
+	int primes[11] = {2,3,5,7,11,13,17,19,23,29,31};
+	si primes_needed;
+
 	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+		int n; cin>>n;
+		vi a; tkii(a,n);
+		vi color; color.resize(n);
+		int max_ind = -1;
+		rep(i,n){
+			rep(j,11){
+				if(a[i]%primes[j]==0){
+					color[i] = j+1; 
+					max_ind = max(max_ind,j);
+					break;
+				}
+			}
+		}
+
+		cout<<max_ind+1<<endl;
+		prvi(color);
 	}
 }

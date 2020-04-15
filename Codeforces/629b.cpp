@@ -62,13 +62,74 @@ int vmax(vi v){ //positivity assumed
 
 ////////////////////////////////////////
 
+vector< vll > ncrmemo;
+
+ll ncr(int n, int r){
+	//cout<<"ncr called with "<<n<<" and "<<r<<endl;
+	if(n==r) return 1;
+	else if(r==0) return 1;
+	else if(ncrmemo[n][r]==-1){
+		ncrmemo[n][r]=ncr(n-1,r)+ncr(n-1,r-1);
+		return ncrmemo[n][r];
+	}
+	else return ncrmemo[n][r];
+}
+
+string ans(int n, int k, int b){
+	//cout<<"ans called with "<<n<<" "<<k<<" "<<b<<endl;
+	if(k==1){
+		string ret = "";
+		rep(i,n-b) ret.append("a");
+		rep(j,b) ret.append("b");
+		return ret;
+	}
+	else if(b==0){
+		string ret = "";
+		rep(i,n) ret.append("a");
+		return ret;
+	}
+/*	else if(k==ncr()){
+		string ret = "";
+		rep(i,b) ret.append("b");
+		rep(j,n-b) ret.append("a");
+		return ret;
+	}*/
+	else if(ncr(n-1,b) >= k){
+		string ret = "a";
+		ret.append(ans(n-1,k,b));
+		return ret;
+	}
+	else{
+		string ret = "b";
+		ret.append(ans(n-1,k-ncr(n-1,b),b-1));
+		return ret;
+	}
+}
+
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+	rep(i,1e5){
+		vll tmp;
+		rep(j,3){
+			tmp.pb(-1);
+		}
+		ncrmemo.pb(tmp);
 	}
+
+	test(t){
+		int n,k; cin>>n>>k;
+		cout<<ans(n,k,2)<<endl;
+	}
+	/*rep(n,10){
+		if(n<=2) continue;
+		cout<<"ok"<<endl;
+		int lim = ncr(n,2);
+		cout<<"okk"<<endl;
+		rep1(k,lim){
+			cout<<n<<" "<<k<<" "<<ans(n,k,2)<<endl;
+		}
+	}
+	cout<<ans(4,4,2)<<endl;*/
 }

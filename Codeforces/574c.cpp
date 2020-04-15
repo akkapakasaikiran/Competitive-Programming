@@ -66,9 +66,17 @@ int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+	int n; cin>>n;
+	vi h1,h2; tkii(h1,n); tkii(h2,n);
+
+	vll dp0,dp1,dp2;
+	dp0.resize(n+1); dp1.resize(n+1); dp2.resize(n+1);
+
+	rep1(i,n){
+		dp0[i] = max(max(dp0[i-1],dp1[i-1]),dp2[i-1]);
+		dp1[i] = max(dp2[i-1],dp0[i-1]) + h1[i-1];
+		dp2[i] = max(dp1[i-1],dp0[i-1]) + h2[i-1];
 	}
+
+	cout<<max(max(dp0[n],dp1[n]),dp2[n])<<endl;
 }

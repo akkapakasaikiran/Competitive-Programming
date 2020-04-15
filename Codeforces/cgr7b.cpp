@@ -66,9 +66,16 @@ int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+	int n; cin>>n;
+	vi b; tkii(b,n);
+
+	vi a;
+	int maxx = 0;
+	rep(i,n){
+		// x_i is maxx
+		// b_i = a_i - x_i => a_i = b_i + maxx
+		a.pb(b[i]+maxx);
+		maxx = max(a[i],maxx);
 	}
+	prvi(a);
 }

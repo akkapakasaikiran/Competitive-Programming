@@ -67,8 +67,12 @@ int main(){
 	cin.tie(NULL); cout.tie(NULL);
 
 	test(t){
-		int n,m; cin>>n>>m;
-		if(n%m==0) cout<<"YES"<<endl;
-		else cout<<"NO"<<endl;
+		int n; cin>>n;
+		if(n==1) cout<<-1<<endl;
+		else{
+			cout<<2;
+			rep(i,n-1) cout<<3;
+			cout<<endl;
+		}
 	}
 }
