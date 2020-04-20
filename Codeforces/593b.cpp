@@ -34,37 +34,28 @@ void print_vector(vector<T> v){
 	cout<<endl;
 }
 
+void rsort(vector<int> &v){
+	sort(v.begin(),v.end(),greater<int>());
+}
+
 ////////////////////////////////////////
+
+ll binmodexp(ll a,ll b,ll m){
+	ll ret = 1;
+	if(b==0) return 1;
+	else if(b%2==0) return binmodexp((a*a)%m,b/2,m);
+	else return (a*binmodexp((a*a)%m,b/2,m))%m;
+}
 
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	int primes[11] = {2,3,5,7,11,13,17,19,23,29,31};
-	bool vis[11] = {false};
+	ll n,m; cin>>n>>m;
+	ll mod = 1e9+7;
 
-	test(t){
-		int n; cin>>n;
-		vi a; tkii(a,n);
-		vi color; color.resize(n);
+	ll choc = binmodexp(2,m,mod)-1;
+	ll ans = binmodexp(choc,n,mod);
 
-		rep(i,n){
-			rep(j,11){
-				if(a[i]%primes[j]==0){
-					color[i] = primes[j];
-					vis[j] = true; 
-					break;
-				}
-			}
-		}
-
-		vi aaye; 
-		rep(i,11) if(vis[i]) aaye.pb(primes[i]);
-		cout<<aaye.size()<<endl;
-		rep(i,n) rep(j,aaye.size()) if(color[i] == aaye[j]) cout<<j+1<<" ";
-		cout<<endl;
-
-		//vi carray; carray.insert(carray.end(),colors_needed.begin(),colors_needed.end());
-
-	}
+	cout<<ans<<endl; 
 }

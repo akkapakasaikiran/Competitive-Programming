@@ -34,37 +34,38 @@ void print_vector(vector<T> v){
 	cout<<endl;
 }
 
+void rsort(vector<int> &v){
+	sort(v.begin(),v.end(),greater<int>());
+}
+
 ////////////////////////////////////////
 
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	int primes[11] = {2,3,5,7,11,13,17,19,23,29,31};
-	bool vis[11] = {false};
-
 	test(t){
-		int n; cin>>n;
-		vi a; tkii(a,n);
-		vi color; color.resize(n);
-
-		rep(i,n){
-			rep(j,11){
-				if(a[i]%primes[j]==0){
-					color[i] = primes[j];
-					vis[j] = true; 
-					break;
-				}
-			}
+		int a,b,c;
+		cin>>a>>b>>c;
+		int ans = 0;
+		
+		if(b < c/2){ //a,3,8 -> a,0,2
+			ans = 3*b;
+			b = 0;
+		}
+		else{ // a,4,7 -> a,1,1
+			ans += 3*(c/2);
+			b -= c/2;  
 		}
 
-		vi aaye; 
-		rep(i,11) if(vis[i]) aaye.pb(primes[i]);
-		cout<<aaye.size()<<endl;
-		rep(i,n) rep(j,aaye.size()) if(color[i] == aaye[j]) cout<<j+1<<" ";
-		cout<<endl;
+		if(a < b/2){ // 1,4,c -> 0,2,c
+			ans += 3*a;
+		}
+		else{ // 3,2,c -> 2,0,c
+			ans += 3*(b/2);
+		}
 
-		//vi carray; carray.insert(carray.end(),colors_needed.begin(),colors_needed.end());
-
+		cout<<ans<<endl;	
 	}
+	
 }

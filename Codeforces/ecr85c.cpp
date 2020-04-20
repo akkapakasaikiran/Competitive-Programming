@@ -46,7 +46,7 @@ int main(){
 
 	test(t){
 		int n; cin>>n;
-		v<ll> a,b; ll x,y;
+		vll a,b; ll x,y;
 		rep(i,n){
 			cin>>x>>y;
 			a.pb(x); b.pb(y);

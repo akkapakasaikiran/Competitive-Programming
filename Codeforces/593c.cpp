@@ -34,37 +34,21 @@ void print_vector(vector<T> v){
 	cout<<endl;
 }
 
+void rsort(vector<int> &v){
+	sort(v.begin(),v.end(),greater<int>());
+}
+
 ////////////////////////////////////////
 
 int main(){
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL); cout.tie(NULL);
 
-	int primes[11] = {2,3,5,7,11,13,17,19,23,29,31};
-	bool vis[11] = {false};
-
-	test(t){
-		int n; cin>>n;
-		vi a; tkii(a,n);
-		vi color; color.resize(n);
-
-		rep(i,n){
-			rep(j,11){
-				if(a[i]%primes[j]==0){
-					color[i] = primes[j];
-					vis[j] = true; 
-					break;
-				}
-			}
-		}
-
-		vi aaye; 
-		rep(i,11) if(vis[i]) aaye.pb(primes[i]);
-		cout<<aaye.size()<<endl;
-		rep(i,n) rep(j,aaye.size()) if(color[i] == aaye[j]) cout<<j+1<<" ";
-		cout<<endl;
-
-		//vi carray; carray.insert(carray.end(),colors_needed.begin(),colors_needed.end());
-
+	int n; cin>>n;
+	vvi groups; groups.resize(n);
+	rep(i,n*n){
+		if( (i/n)%2 == 0 ) groups[i%n].pb(i+1);
+		else groups[n-i%n-1].pb(i+1); 
 	}
+	rep(i,n) prvi(groups[i]);
 }
