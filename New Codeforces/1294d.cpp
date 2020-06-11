@@ -40,6 +40,7 @@ int main(){
 	int y; 
 	rep(i,q){
 		cin>>y;
+		
 	}
 
 
