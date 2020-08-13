@@ -35,6 +35,9 @@ int main(){
 	a = b;
 	n = a.size();
 
+
+
+
 	vi label(n);
 	rep1(i,n-2){
 		if(a[i] > a[i-1] && a[i] > a[i+1]) label[i] = 1; 
