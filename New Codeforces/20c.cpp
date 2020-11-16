@@ -4,6 +4,8 @@ using namespace std;
 
 vector<long long> dist;
 
+const long long inf = 1e12;
+
 struct comp {
 	bool operator() (const int &x, const int &y) const {
 		return make_pair(dist[x],x) < make_pair(dist[y],y);
@@ -14,7 +16,7 @@ int main(){
 
 	int n,m; cin>>n>>m;
 	vector<vector<pair<int,int>>> a(n+1);
-	dist.resize(n+1, 1e12);
+	dist.resize(n+1, inf);
 
 	int u,v,w;
 	for(int i = 0; i < m; i++){
@@ -46,9 +48,9 @@ int main(){
 		}
 	}
 
-	if(dist[n] == 1e12) cout<<-1<<endl;
+	if(dist[n] == inf) cout<<-1<<endl;
 	else{
-	vector<int> path = {n};
+		vector<int> path = {n};
 		int x = n;
 		while(parent[x] != 0){
 			path.push_back(parent[x]);
